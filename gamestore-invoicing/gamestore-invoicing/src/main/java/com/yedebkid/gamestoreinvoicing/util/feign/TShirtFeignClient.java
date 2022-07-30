@@ -1,2 +1,5 @@
-package com.yedebkid.gamestoreinvoicing.util.feign;public interface TShirtFeignClient {
+package com.yedebkid.gamestoreinvoicing.util.feign;
+
+public interface TShirtFeignClient {
+
 }

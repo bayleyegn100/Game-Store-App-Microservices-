@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.Console;
 import java.util.List;
 
-@FeignClient(name= "console")
-public interface ConsoleMagicClient {
+@FeignClient(name= "gamestore-catalog")
+public interface ConsoleFeignClient {
     @RequestMapping(value = "/console", method = RequestMethod.GET)
     public List<Console> getAllConsoles();
 }
