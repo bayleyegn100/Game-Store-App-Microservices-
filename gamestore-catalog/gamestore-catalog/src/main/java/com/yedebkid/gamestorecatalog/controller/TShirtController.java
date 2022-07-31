@@ -1,8 +1,8 @@
 package com.yedebkid.gamestorecatalog.controller;
 
 
-import com.yedebkid.gamestorecatalog.model.TShirt;
-import com.yedebkid.gamestorecatalog.rpository.TShirtRepository;
+import com.yedebkid.gamestorecatalog.serviceLayer.GameStoreCatalogServiceLayer;
+import com.yedebkid.gamestorecatalog.viewModel.TShirtViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -17,46 +17,45 @@ import java.util.Optional;
 @RefreshScope
 public class TShirtController {
     @Autowired
-    TShirtRepository tshirtRepository;
-
+    GameStoreCatalogServiceLayer gameStoreCatalogServiceLayer;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TShirt createTShirt(@RequestBody @Valid TShirt tshirt) {
-        tshirt = tshirtRepository.save(tshirt);
-        return tshirt;
+    public TShirtViewModel createTShirt(@RequestBody @Valid TShirtViewModel tShirtViewModel) {
+        tShirtViewModel = gameStoreCatalogServiceLayer.createTShirt(tShirtViewModel);
+        return tShirtViewModel;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<TShirt> getTShirt(@PathVariable("id") Long tShirtId) {
-        Optional<TShirt> tshirt = tshirtRepository.findById(tShirtId);
-        if (tshirt == null) {
+    public TShirtViewModel getTShirt(@PathVariable("id") int tShirtId) {
+        TShirtViewModel tShirtViewModel = gameStoreCatalogServiceLayer.getTShirt(tShirtId);
+        if (tShirtViewModel == null) {
             throw new IllegalArgumentException("T-Shirt could not be retrieved for id " + tShirtId);
         } else {
-            return tshirt;
+            return tShirtViewModel;
         }
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTShirt(@RequestBody @Valid TShirt tshirt) {
-        if (tshirt==null || tshirt.getId() < 1) {
+    public void updateTShirt(@RequestBody @Valid TShirtViewModel tShirtViewModel) {
+        if (tShirtViewModel==null || tShirtViewModel.getId() < 1) {
             throw new IllegalArgumentException("Id in path must match id in view model");
-        }else if (tshirt.getId() > 0) {
-            tshirtRepository.findById(tshirt.getId());
+        }else if (tShirtViewModel.getId() > 0) {
+            gameStoreCatalogServiceLayer.updateTShirt(tShirtViewModel);
         }
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTShirt(@PathVariable("id") Long tShirtId) {
-        tshirtRepository.findById(tShirtId);
+    public void deleteTShirt(@PathVariable("id") int tShirtId) {
+        gameStoreCatalogServiceLayer.deleteTShirt(tShirtId);
     }
 
     @GetMapping("/size/{size}")
     @ResponseStatus(HttpStatus.OK)
-    public List<TShirt> getTShirtsBySize(@PathVariable("size") String size) {
-        List<TShirt> tvmBySize = tshirtRepository.findAllBySize(size);
+    public List<TShirtViewModel> getTShirtsBySize(@PathVariable("size") String size) {
+        List<TShirtViewModel> tvmBySize = gameStoreCatalogServiceLayer.getTShirtBySize(size);
         if (tvmBySize == null || tvmBySize.isEmpty()) {
             throw new IllegalArgumentException("No t-shirts were found in size " + size);
         }
@@ -65,8 +64,8 @@ public class TShirtController {
 
     @GetMapping("/color/{color}")
     @ResponseStatus(HttpStatus.OK)
-    public List<TShirt> getTShirtsByColor(@PathVariable("color") String color) {
-        List<TShirt> tvmByColor = tshirtRepository.findAllByColor(color);
+    public List<TShirtViewModel> getTShirtsByColor(@PathVariable("color") String color) {
+        List<TShirtViewModel> tvmByColor = gameStoreCatalogServiceLayer.getTShirtByColor(color);
         if (tvmByColor == null || tvmByColor.isEmpty()) {
             throw new IllegalArgumentException("No t-shirts were found in " + color);
         }
@@ -75,8 +74,8 @@ public class TShirtController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<TShirt> getAllTShirts() {
-        List<TShirt> tvmByColor = tshirtRepository.findAll();
+    public List<TShirtViewModel> getAllTShirts() {
+        List<TShirtViewModel> tvmByColor = gameStoreCatalogServiceLayer.getAllTShirts();
         if (tvmByColor == null || tvmByColor.isEmpty()) {
             throw new IllegalArgumentException("No t-shirts were found.");
         }

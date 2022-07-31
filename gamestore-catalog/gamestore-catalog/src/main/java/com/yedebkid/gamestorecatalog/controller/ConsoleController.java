@@ -1,12 +1,13 @@
 package com.yedebkid.gamestorecatalog.controller;
 
-import com.yedebkid.gamestorecatalog.model.Console;
-import com.yedebkid.gamestorecatalog.rpository.ConsoleRepository;
+import com.yedebkid.gamestorecatalog.serviceLayer.GameStoreCatalogServiceLayer;
+import com.yedebkid.gamestorecatalog.viewModel.ConsoleViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,47 +18,48 @@ import java.util.Optional;
 public class ConsoleController {
 
     @Autowired
-    ConsoleRepository consoleRepository;
+    GameStoreCatalogServiceLayer gameStoreCatalogServiceLayer;
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Console createConsole(@RequestBody Console console) {
-        console = consoleRepository.save(console);
-        return console;
+    public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel consoleViewModel) {
+        consoleViewModel = gameStoreCatalogServiceLayer.createConsole(consoleViewModel);
+        return consoleViewModel;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Console> getConsole(@PathVariable("id") long consoleId) {
-        Optional<Console> console = consoleRepository.findById(consoleId);
-        if (console == null) {
+    public ConsoleViewModel getConsole(@PathVariable("id") long consoleId) {
+        ConsoleViewModel consoleViewModel = gameStoreCatalogServiceLayer.getConsoleById(consoleId);
+        if (consoleViewModel == null) {
             throw new IllegalArgumentException("Console could not be retrieved for id " + consoleId);
         } else {
-            return console;
+            return consoleViewModel;
         }
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console console) {
+    public void updateConsole(@RequestBody @Valid ConsoleViewModel consoleViewModel) {
 
-        if (console==null || console.getId()< 1) {
+        if (consoleViewModel==null || consoleViewModel.getId()< 1) {
             throw new IllegalArgumentException("Id in path must match id in view model");
-        } else if (console.getId() > 0) {
-            consoleRepository.findById(console.getId());
+        } else if (consoleViewModel.getId() > 0) {
+            gameStoreCatalogServiceLayer.updateConsole(consoleViewModel);
         }
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable("id") long consoleId) {
-        consoleRepository.deleteById(consoleId);
+        gameStoreCatalogServiceLayer.deleteConsole(consoleId);
     }
 
     @GetMapping("/manufacturer/{manufacturer}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Console> getConsoleByManufacturer(@PathVariable("manufacturer") String manu) {
-        List<Console> cvmByManufacturer = consoleRepository.findAllByManufacturer(manu);
+    public List<ConsoleViewModel> getConsoleByManufacturer(@PathVariable("manufacturer") String manu) {
+        List<ConsoleViewModel> cvmByManufacturer = gameStoreCatalogServiceLayer.getConsoleByManufacturer(manu);
         if (cvmByManufacturer == null || cvmByManufacturer.isEmpty()) {
             throw new IllegalArgumentException("No consoles, manufactured by " + manu + ", were found");
         } else
@@ -66,8 +68,8 @@ public class ConsoleController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Console> getAllConsoles() {
-        List<Console> cvmByManufacturer = consoleRepository.findAll();
+    public List<ConsoleViewModel> getAllConsoles() {
+        List<ConsoleViewModel> cvmByManufacturer = gameStoreCatalogServiceLayer.getAllConsoles();
         if (cvmByManufacturer == null || cvmByManufacturer.isEmpty()) {
             throw new IllegalArgumentException("No consoles were found");
         } else
