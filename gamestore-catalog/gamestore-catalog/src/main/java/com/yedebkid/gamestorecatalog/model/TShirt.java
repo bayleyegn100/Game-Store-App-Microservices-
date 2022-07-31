@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name="tshirt")
+@Table(name="t_shirt")
 public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
