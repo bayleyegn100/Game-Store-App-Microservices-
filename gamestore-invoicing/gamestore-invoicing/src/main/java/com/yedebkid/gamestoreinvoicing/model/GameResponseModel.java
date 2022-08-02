@@ -31,6 +31,9 @@ public class GameResponseModel {
         this.quantity = quantity;
     }
 
+    public GameResponseModel() {
+    }
+
     public long getId() {
         return id;
     }

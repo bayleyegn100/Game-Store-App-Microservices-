@@ -4,16 +4,14 @@ import com.yedebkid.gamestoreinvoicing.model.ConsoleResponseModel;
 import com.yedebkid.gamestoreinvoicing.model.GameResponseModel;
 import com.yedebkid.gamestoreinvoicing.model.TShirtResponseModal;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-import java.util.Optional;
 
-@FeignClient(name="gamestore-catalog", configuration= FeignClientsConfiguration.class, url="http://localhost:7474")
+@FeignClient(name="gamestore-catalog")
 public interface GameStoreCatalogFeignClient {
 //Get by id
     @RequestMapping(value = "/tshirt/{id}", method = RequestMethod.GET)

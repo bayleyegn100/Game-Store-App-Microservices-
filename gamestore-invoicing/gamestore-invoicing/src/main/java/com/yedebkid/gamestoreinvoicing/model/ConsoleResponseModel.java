@@ -31,6 +31,9 @@ public class ConsoleResponseModel {
         this.quantity = quantity;
     }
 
+    public ConsoleResponseModel() {
+    }
+
     public long getId() {
         return id;
     }

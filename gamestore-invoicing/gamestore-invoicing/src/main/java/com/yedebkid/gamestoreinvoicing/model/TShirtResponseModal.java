@@ -28,6 +28,9 @@ public class TShirtResponseModal {
         this.quantity = quantity;
     }
 
+    public TShirtResponseModal() {
+    }
+
     public long getId() {
         return id;
     }
