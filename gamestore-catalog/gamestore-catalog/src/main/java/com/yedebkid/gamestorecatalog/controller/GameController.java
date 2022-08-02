@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RefreshScope
-@RequestMapping(value="/game")
+@RequestMapping(value = "/game")
 public class GameController {
 
     @Autowired
@@ -95,4 +94,5 @@ public class GameController {
         } else {
             return games;
         }
-    }}
+    }
+}
