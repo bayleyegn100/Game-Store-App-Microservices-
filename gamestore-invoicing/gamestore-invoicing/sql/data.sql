@@ -1,4 +1,4 @@
-use game_store_catalog;
+use game_store_invoicing;
   
 insert into invoice
 	(`name`, street, city, state, zipcode, item_type, item_id, unit_price, quantity, subtotal, tax, processing_fee, total)
