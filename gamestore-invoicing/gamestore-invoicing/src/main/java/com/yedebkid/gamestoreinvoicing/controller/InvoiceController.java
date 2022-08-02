@@ -21,32 +21,24 @@ public class InvoiceController {
     @Autowired
     private InvoiceServiceLayer invoiceServiceLayer;
 
-    @GetMapping("name/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> getInvoicesByCustomerName(@PathVariable String name){
-        return invoiceServiceLayer.getInvoicesByCustomerName(name);
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> getAllInvoices() {
-        return invoiceServiceLayer.getAllInvoices();
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Invoice saveInvoice(@RequestBody Invoice invoice){
+        return invoiceServiceLayer.saveInvoice(invoice);
     }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Invoice getInvoice(@PathVariable  long id){
         return invoiceServiceLayer.getInvoice(id);
     }
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody Invoice invoice){
-        return invoiceServiceLayer.createInvoice(invoice);
+    @GetMapping("name/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> getInvoicesByCustomerName(@PathVariable String name){
+        return invoiceServiceLayer.getInvoicesByCustomerName(name);
     }
-
-//    @PostMapping("/purchaseInvoices")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Invoice createInvoice(@RequestBody  Invoice invoice) {
-//        return invoiceServiceLayer.createInvoice(invoice);
-//    }
-
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> getAllInvoices() {
+        return invoiceServiceLayer.getAllInvoices();
+    }
 }

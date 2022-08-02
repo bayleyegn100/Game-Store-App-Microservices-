@@ -59,6 +59,14 @@ public class InvoiceServiceLayer {
         invoice.setZipcode(input.getZipcode());
         invoice.setItemType(input.getItemType());
         invoice.setItemId(input.getItemId());
+        invoice.setUnitPrice(input.getUnitPrice());
+        invoice.setQuantity(input.getQuantity());
+        invoice.setSubtotal(input.getSubtotal());
+        invoice.setProcessingFee(input.getProcessingFee());
+        invoice.setTax(input.getTax());
+        invoice.setProcessingFee(input.getProcessingFee());
+        invoice.setTotal(input.getTotal());
+
 
         //Checks the item type and get the correct unit price
         //Check if we have enough quantity
