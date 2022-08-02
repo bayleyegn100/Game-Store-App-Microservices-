@@ -9,13 +9,18 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "fee")
+@Table(name = "processing_fee")
 public class ProcessingFee {
 
     @Id
     @Column(name = "product_type")
     private String productType;
     private BigDecimal fee;
+
+    public ProcessingFee(String productType, BigDecimal fee) {
+        this.productType = productType;
+        this.fee = fee;
+    }
 
     public String getProductType() {
         return productType;

@@ -3,7 +3,7 @@ package com.yedebkid.gamestoreinvoicing.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Game {
+public class GameResponseModel {
     private long id;
     private String title;
     private String esrbRating;
@@ -11,6 +11,25 @@ public class Game {
     private BigDecimal price;
     private String studio;
     private long quantity;
+
+    public GameResponseModel(long id, String title, String esrbRating, String description, BigDecimal price, String studio, long quantity) {
+        this.id = id;
+        this.title = title;
+        this.esrbRating = esrbRating;
+        this.description = description;
+        this.price = price;
+        this.studio = studio;
+        this.quantity = quantity;
+    }
+
+    public GameResponseModel(String title, String esrbRating, String description, BigDecimal price, String studio, long quantity) {
+        this.title = title;
+        this.esrbRating = esrbRating;
+        this.description = description;
+        this.price = price;
+        this.studio = studio;
+        this.quantity = quantity;
+    }
 
     public long getId() {
         return id;
@@ -71,15 +90,15 @@ public class Game {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Game)) return false;
-        Game game = (Game) o;
-        return getId() == game.getId() &&
-                getQuantity() == game.getQuantity() &&
-                Objects.equals(getTitle(), game.getTitle()) &&
-                Objects.equals(getEsrbRating(), game.getEsrbRating()) &&
-                Objects.equals(getDescription(), game.getDescription()) &&
-                Objects.equals(getPrice(), game.getPrice()) &&
-                Objects.equals(getStudio(), game.getStudio());
+        if (!(o instanceof GameResponseModel)) return false;
+        GameResponseModel gameResponseModel = (GameResponseModel) o;
+        return getId() == gameResponseModel.getId() &&
+                getQuantity() == gameResponseModel.getQuantity() &&
+                Objects.equals(getTitle(), gameResponseModel.getTitle()) &&
+                Objects.equals(getEsrbRating(), gameResponseModel.getEsrbRating()) &&
+                Objects.equals(getDescription(), gameResponseModel.getDescription()) &&
+                Objects.equals(getPrice(), gameResponseModel.getPrice()) &&
+                Objects.equals(getStudio(), gameResponseModel.getStudio());
     }
 
     @Override
