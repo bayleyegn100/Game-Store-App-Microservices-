@@ -1,4 +1,4 @@
-drop database if exists game_store_catalog;
+drop database if exists game_store_invocing;
 create database game_store_catalog;
 use game_store_catalog;
 
