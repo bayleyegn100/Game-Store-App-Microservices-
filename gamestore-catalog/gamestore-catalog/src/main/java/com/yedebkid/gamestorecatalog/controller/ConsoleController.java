@@ -69,10 +69,10 @@ public class ConsoleController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<ConsoleViewModel> getAllConsoles() {
-        List<ConsoleViewModel> cvmByManufacturer = gameStoreCatalogServiceLayer.getAllConsoles();
-        if (cvmByManufacturer == null || cvmByManufacturer.isEmpty()) {
+        List<ConsoleViewModel> cvm = gameStoreCatalogServiceLayer.getAllConsoles();
+        if (cvm == null || cvm.isEmpty()) {
             throw new IllegalArgumentException("No consoles were found");
         } else
-            return cvmByManufacturer;
+            return cvm;
     }
 }

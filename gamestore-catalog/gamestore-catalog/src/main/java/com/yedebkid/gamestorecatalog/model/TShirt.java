@@ -12,7 +12,7 @@ import java.util.Objects;
 public class TShirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tshirt_id")
+    @Column(name = "t_shirt_id")
     private long id;
     private String size;
     private String color;

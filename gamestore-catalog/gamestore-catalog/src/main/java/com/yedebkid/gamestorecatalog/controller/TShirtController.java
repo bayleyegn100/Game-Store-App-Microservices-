@@ -75,10 +75,10 @@ public class TShirtController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<TShirtViewModel> getAllTShirts() {
-        List<TShirtViewModel> tvmByColor = gameStoreCatalogServiceLayer.getAllTShirts();
-        if (tvmByColor == null || tvmByColor.isEmpty()) {
+        List<TShirtViewModel> tvm = gameStoreCatalogServiceLayer.getAllTShirts();
+        if (tvm.isEmpty()) {
             throw new IllegalArgumentException("No t-shirts were found.");
         }
-        return tvmByColor;
+        return tvm;
     }
 }

@@ -19,11 +19,9 @@ import java.util.Optional;
 @Component
 public class GameStoreCatalogServiceLayer {
 
-
     GameRepository gameRepo;
     ConsoleRepository consoleRepo;
     TShirtRepository tShirtRepo;
-
 
     @Autowired
     public GameStoreCatalogServiceLayer(GameRepository gameRepo, ConsoleRepository consoleRepo, TShirtRepository tShirtRepo                                 ) {
@@ -31,7 +29,6 @@ public class GameStoreCatalogServiceLayer {
         this.consoleRepo = consoleRepo;
         this.tShirtRepo = tShirtRepo;
     }
-
 
     //Game service layer...
     public GameViewModel createGame(GameViewModel gameViewModel) {
